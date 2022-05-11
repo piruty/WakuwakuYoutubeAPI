@@ -23,6 +23,9 @@ def search_youtube(key: str, count: int, query: str):
         'order': 'videoCount'
     }
 
+    if query != '':
+        payload['q'] = query
+
     r = requests.get(YOUTUBE_URL, params=payload)
     click.echo(r.json())
 
