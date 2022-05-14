@@ -1,7 +1,8 @@
 from os import getenv
 import requests
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
+from models import DataAPIResponse
 
 
 KEY = getenv('YOUTUBE_API_KEY')
@@ -29,7 +30,11 @@ def search_youtube():
     }
 
     r = requests.get(YOUTUBE_URL, params=payload)
-    return r.json()
+    if r.status_code != 200:
+        raise HTTPException(status_code=403, detail='Bad Request')
+
+    response = DataAPIResponse.parse_obj(r.json())
+    return response
 
 
 @app.get("/")
