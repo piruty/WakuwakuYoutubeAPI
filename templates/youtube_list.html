@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Youtube List</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>タイトル</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.snippet.title }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
+
+

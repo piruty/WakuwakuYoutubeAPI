@@ -19,7 +19,7 @@ def ok():
     return 'ok'
 
 @app.get("/youtube")
-def search_youtube():
+def search_youtube(request: Request):
     payload = {
         'key': KEY,
         'part': 'snippet',
@@ -34,7 +34,7 @@ def search_youtube():
         raise HTTPException(status_code=403, detail='Bad Request')
 
     response = DataAPIResponse.parse_obj(r.json())
-    return response
+    return templates.TemplateResponse('youtube_list.html', {'request': request, 'items': response.items})
 
 
 @app.get("/")
